@@ -1,30 +1,24 @@
-import React from 'react'
+import React from "react";
 
 const About = () => {
-    return (
-        <div className="container about">
-            <h1 className="header">About Us</h1>
-            <div>
-                <h5><em>What is Fano?</em></h5>
-                <p>Fano is a web application that can be used to annotate images of clothes that have text printed on them. 
-                Data annotation is very important for the development of many AI and robotic applications.
-                We have noticed that there is a large quanitity of clothes online, especially t-shirts and tops 
-                that have text printed on them, however, the text rarely gets annotated.
-                Our application could potentially help provide a better search experience of clothes, assist retailers, but most importantly, it can allow AI models to get trained. </p>
-            
-                <p>And we need <em>your</em> help!</p>
-                <p> Data annotation is extremely time consuming as there are thousands of images to be annotated. This application has been created
-                to allow essentially anyone who has the time and is willing to get involved to annotate some images in their spare time. </p>
-            </div>
-            <div>
-                <h5><em>Who are we?</em></h5>
-                <p> This application has been commissioned by the ADAPT Centre and was created by 2nd and 3rd year Trinity College Students.
-                </p>
-                <img src="https://i1.wp.com/problemsolving.ie/wp-content/uploads/2016/06/Adapt_Logo_RGB.png?resize=219%2C188"></img>
+  return (
+    <div className="container userpage marginFromFooter">
+      <h5 class="center-align">About</h5>
+      <div class="row cardsAboutContact ">
+        <div class="col s12 m12">
+          <div className="card cardSettings">
+            <p>Fano challenges its users to read complex text printed on clothes. The better they read, the higher they score.</p>
+            <p>
+            Fano is co-funded by the European Union’s Horizon 2020 programme under the Marie Skłodowska-Curie Grant Agreement No. 801522 at the ADAPT SFI Research Centre at Trinity College Dublin, as part of the ELITE-S project. ADAPT SFI is funded by Science Foundation Ireland and is co-funded under the European Regional Development Fund (ERDF) through Grant 13/RC/2106_P2.
+            </p>
 
-            </div>
+          </div>
         </div>
-    )
-}
+        
+      </div>
+    </div>
+  );
+};
 
-export default About
+
+export default About;

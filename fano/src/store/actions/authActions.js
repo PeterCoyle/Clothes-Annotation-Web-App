@@ -39,6 +39,7 @@ export const signUp = (newUser) => {
           email: newUser.email,
           firstName: newUser.firstName,
           lastName: newUser.lastName,
+          annotationsCounter: 0
         };
 
         await getFirestore()
@@ -55,16 +56,15 @@ export const signUp = (newUser) => {
   };
 };
 
-//Updated version from fork 
 
-// TODO makeAdmin function
+//makeAdmin function
 export const makeAdmin = (credentials) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
       const firebase = getFirebase()
-      firebase.auth().makeAdmin(
-          credentials.email,
-          credentials.password
-      ).then(() => {
+
+      const addAdminFunc = firebase.functions().httpsCallable('addAdminRole')
+      addAdminFunc(credentials).then((resp) => {
+          console.log(resp)
           dispatch({ type: "ADMIN_CREATED" })
       }).catch((err) => {
           dispatch({ type: "NOT POSSIBLE TO CREATE ADMIN", err })
@@ -73,14 +73,15 @@ export const makeAdmin = (credentials) => {
   }
 }
 
-// TODO removeAdmin
+//removeAdmin
 export const removeAdmin = (credentials) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase()
-    firebase.auth().removeAdmin(
-        credentials.email,
-        credentials.password
-    ).then(() => {
+
+    const removeAdminFunc = firebase.functions().httpsCallable('removeAdmin')
+    removeAdminFunc(credentials).then((resp) => {
+        console.log(resp)
+    }).then(() => {
         dispatch({ type: "ADMIN REMOVED" })
     }).catch((err) => {
         dispatch({ type: "ADMIN NOT SUCCESSFULLY REMOVED", err })

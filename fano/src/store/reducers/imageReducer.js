@@ -6,9 +6,9 @@ const initState = {
     annotationError: null
 }
 
-const authReducer = (state = initState, action) => {
+export const imageReducer = (state = initState, action) => {
 
-    switch(action.type) {
+    switch (action.type) {
         case "IMAGES_UPLOAD_START":
             console.log("image upload started")
             return {
@@ -44,13 +44,29 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 annotationError: action.err
             }
+        case "ANNOTATION_EXPORT_SUCCESSFUL":
+            console.log("annotation export successful")
+            return {
+                ...state,
+                annotationsJson: action.blob,
+                annotationError: null
+            }
+        case "ANNOTATION_EXPORT_ERROR":
+            console.log("annotation commit error")
+            console.log(action.err)
+            return {
+                ...state,
+                annotationsJson: null,
+                annotationError: action.err
+            }
         case "IMAGE_FETCH_SUCCESSFUL":
             console.log(`image ${action.imageId} with url ${action.imageUrl} fetched succesfully`)
             return {
                 ...state,
                 fetchedImage: {
                     imageId: action.imageId,
-                    imageUrl: action.imageUrl
+                    imageUrl: action.imageUrl,
+                    imageName: action.imageName
                 },
                 fetchError: null
             }
