@@ -1,37 +1,46 @@
 import React, { Component } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { Link } from 'react-router-dom';
-
+import SignedInLinks from './SignedInLinks';
+import SignedOutLinks from './SignedOutLinks';
+import {connect} from 'react-redux'
+import LogoImage from '../resources/Fano_logo.png'
 class Navbar extends Component {
+    render(){
+        const {auth} = this.props;
+        const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks/>
+            return (
+                <div>
+                    <nav  className="navbarblur">
+                        <div className="nav-wrapper" >
+                            <a href="/"  id="brand"><img src={LogoImage} width="120" height="auto" alt="logo">
+                            </img></a>
+                            <a href="#" data-target="mobile-demo" className=" sidenav-trigger right"><i className=" material-icons iconBG">menu</i></a>
+                            <ul className="right hide-on-med-and-down">
+                                {links}
+                            </ul>
+                        </div>
+                    </nav>
+                    
+                    <ul className="sidenav sidenav-close " id="mobile-demo">
+                        {links}
+                    </ul>
+
+                </div>
+
+            )
+    }
+
     componentDidMount() {
         let sidenav = document.querySelector('#mobile-demo');
         M.Sidenav.init(sidenav, {edge:'right'});
     }
-    render() {
-        return (
-            <div>
-                <nav  className="blue lighten-3">
-                    <div className="nav-wrapper">
-                        <a href="/" className=" left " id="brand">Fano</a>
-                        <a href="#" data-target="mobile-demo" className=" sidenav-trigger right"><i className=" material-icons">menu</i></a>
-                        <ul className="right hide-on-med-and-down">
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
-                        </ul>
-                    </div>
-                </nav>
-                
-                <ul className="sidenav " id="mobile-demo">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/contact">Contact</Link></li>
-                </ul>
-
-            </div>
-
-        )
+}
+const mapStateToProps = (state) =>{
+    console.log(state);
+    return{
+        auth: state.firebase.auth
     }
 }
-export default Navbar
+   
+export default connect(mapStateToProps)(Navbar);
 
